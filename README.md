@@ -37,12 +37,11 @@ For security reasons, you will be required to change this Droplet’s root passw
 
 	- Run the following command : ``` nano /etc/ssh/sshd_config ```
 
-	- Locate the following line: 
-		#Port 22
+	- Locate the following line:  #Port 22
 
-	-Remove # and change 22 to 2200.
+	- Remove # and change 22 to 2200.
 
-	-Restart the sshd service by running the following command: ``` service sshd restart ```
+	- Restart the sshd service by running the following command: ``` service sshd restart ```
 
 5. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
 
