@@ -38,7 +38,7 @@ $ sudo apt-get upgrade
 - Run the following command : ``` nano /etc/ssh/sshd_config ```
 
 - Locate the following line: 
-	# Port 22
+	#Port 22
 
 -Remove # and change 22 to 2200.
 
@@ -65,7 +65,7 @@ Run the following command
 ``` $ sudo ufw status ``` To check whether firewall is enable or not.
 
 expected results:
-[ufw status](images/ufw_status.png)
+![ufw status](images/ufw_status.png)
 
 Resource : [ufw community](https://help.ubuntu.com/community/UFW) , [NTP](https://www.digitalocean.com/community/tutorials/how-to-configure-ntp-for-use-in-the-ntp-pool-project-on-ubuntu-16-04)
 
