@@ -65,7 +65,43 @@ Run the following command
 ``` $ sudo ufw status ``` To check whether firewall is enable or not.
 
 expected results:
+
 ![ufw status](images/ufw_status.png)
 
 Resource : [ufw community](https://help.ubuntu.com/community/UFW) , [NTP](https://www.digitalocean.com/community/tutorials/how-to-configure-ntp-for-use-in-the-ntp-pool-project-on-ubuntu-16-04)
 
+## Give grader access.
+
+6. Create a new user account named **grader**
+
+create user using the command: ``` $ sudo adduser grader ``` 
+
+7. Give grader the permission to sudo.
+
+Create a file using the command : ``` $ sudo touch /etc/sudoers.d/grader ``` open it using ``` $ sudo nano /etc/sudoers.d/grader ```, add the text ``` grader ALL=(ALL) NOPASSWD:ALL ``` and save it.
+
+Verify:
+
+- switch to grader using ``` $ su - grader ```
+
+- run the command ``` sudo -l ```
+
+The output should look like this:
+
+![sudo -l ](images/grader-sudo-l.png)
+
+8. Create an SSH key pair for grader using the ssh-keygen tool.
+
+- Switch to your local machine
+- Run ```ssh-keygen```
+- Enter file in which to save the key (/home/soumer/.ssh/id_rsa): 
+- Enter passphrase (empty for no passphrase): 
+- copy the contents of the file ~/.ssh/id_rsa.pub
+- Switch to  grader's virtual machine
+- Create a new directory called ~/.ssh using the command : ```$ mkdir .ssh```
+- Create the file ~/.ssh/authorized_keys using the command ```$ touch ~/.ssh/authorized_keys```, open it using ```$ nano ~/.ssh/authorized_keys```, past the content of the key and save it.
+- Change the permissions using ```$ chmod 700 .ssh``` and ```$ chmod 644 .ssh/authorized_keys```
+- Run the command ``` $ sudo nano /etc/ssh/sshd_config```
+- edit the line ```PasswordAuthentication yes ``` to become ```PasswordAuthentication no ```, so we only authenticate using key rsa.
+- restart the service ```$ sudo service ssh restart```
+- Switch to your local machine and run:```$ ssh -i ~/.ssh/id_rsa -p 2200 grader@142.93.49.78 ```
