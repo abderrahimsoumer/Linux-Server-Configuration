@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - Catalog item</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% endblock %}
+</head>
+<body>
+	 {% block header %}
+    <header>
+    <div class="header flex flex--sb">
+        <div class="leftContent">
+            <a href="/" class="link-home"><h1>Catalog App</h1></a>
+        </div>
+        {% block header_rightContent %}
+        <div class="rightContent">
+            {% if 'username' in session %}
+              <span>{{ session.get('name') }}</span>
+              <a class="btn" href="{{ url_for('logout') }}">logout</a>
+            {% else %}
+              <a class="btn" href="{{ url_for('login') }}">login</a>
+            {% endif %}
+        </div>
+        {% endblock %}
+    </div>
+    </header>
+    {% endblock %}
+        
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block footer %}{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

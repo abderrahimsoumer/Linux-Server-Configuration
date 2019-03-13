@@ -1,0 +1,31 @@
+
+{% macro render_item_form(categories,item={}, action= url_for('newItem')) -%}
+    <form action="{{action}}" method="POST">
+				<div class="form-row">
+					<div class="form-control clearfix">
+						<label for="title">Title </label>
+						<input type="text" name="title" id="title" value="{{item.title}}">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-control clearfix">
+						<label for="description">Description </label>
+						<textarea name="description" id="description" style="resize: none">{{item.description}}</textarea> 
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-control clearfix">
+						<label for="category">Category </label>
+						<select name="category" id="category">
+							<option value="">--- category * ---</option>
+						{% if categories %}
+							{% for categorie in categories %}
+							<option value="{{categorie.id}}" {% if item.category and item.category.id == categorie.id%} selected{% endif %} >{{ categorie.name }}</option>
+							{% endfor %}
+						{% endif %}
+						</select>
+					</div>
+				</div>
+				<input type="submit" value="Save">
+			</form>
+{%- endmacro %}

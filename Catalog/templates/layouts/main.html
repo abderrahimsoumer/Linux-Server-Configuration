@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - Catalog item</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <header>
+    <div class="header flex flex--sb">
+        <div class="leftContent">
+            <a href="/" class="link-home"><h1>Catalog App</h1></a>
+        </div>
+        <div class="rightContent">
+            {% if 'username' in session %}
+              <span>{{ session.get('name') }}</span>
+              <a class="btn" href="{{ url_for('logout') }}">logout</a>
+            {% else %}
+              <a class="btn" href="{{ url_for('login') }}">login</a>
+            {% endif %}
+        </div>
+    </div>
+    </header>
+    
+    <!--MESSAGE FLASHING  -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success">{{message}}</div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+    <main>
+        <div class="flex">
+            <div class="sidear">
+                {% block sidear %}
+                <h2>Categories</h2>
+                {% if categories %}
+                <ul>
+                    {% for categorie in categories %}
+                    <li><a href="{{url_for('itemsByCategory', cat_id=categorie.id)}}">{{categorie.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endblock %}
+            </div>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </main>
+
+    {% block footer %}{% endblock %}
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>

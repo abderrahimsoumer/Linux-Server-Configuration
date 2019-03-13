@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+
+{% import 'forms.html' as forms %}
+
+
+{% block title %} Update Item {% endblock %}
+
+
+{% block content %}
+		<div class="card card--centered">
+			<h2 class="title_top">Update Item</h2>
+			<!--MESSAGE FLASHING  -->
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+				  <div class="alert alert-success">{{message}}</div>
+				{% endfor %}
+			{% endif %}
+			{% endwith %}
+
+			{{ forms.render_item_form(categories=categories, item=item, action=url_for('itemUpdate',id= item.id)) }}
+			
+		</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+
+
+
+{% block title %} {{item.title}} {% endblock %}
+
+
+{% block content %}
+	<div class="card card--centered">
+		<h2 class="title_detail">{{item.title}}</h2>
+		<div><strong>Category: </strong> <span>{{item.category.name}}</span></div>
+
+		<form  action="{{url_for('itemDelete',id= item.id)}}" method="POST">
+			<div class="alert alert-danger">Are you sure you want to delete this item 
+			<input class="btn-delete" type="submit" value="OK">
+			<div></div></div>
+		</form>
+		<a class="btn btn-cancel" href= "{{ url_for('itemView', id = item.id)}}"> Cancel </a>
+	</div>
+{% endblock %}

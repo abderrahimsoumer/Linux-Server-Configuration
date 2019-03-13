@@ -1,0 +1,220 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+
+
+/*@import "base/_mixins";*/
+
+
+body{
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	background:linear-gradient(to top right, #8BC34A, #009688) no-repeat 100% 100%;
+	font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+
+.clearfix::after{
+	display: table;
+	content: "";
+	width: 100%;
+	clear: both;
+}
+
+
+.float-left{
+	float: left;
+}
+
+
+.title_top{
+	color: #d4faf9;
+    background: #009688;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+    /* padding: 0; */
+    border-radius: 0 0 10px 10px;
+}
+
+
+.title_detail {
+    font-size: 20px;
+}
+
+
+.description{
+    text-indent: 20px;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    color: #000;
+    line-height: 30px;
+}
+
+
+p:first-letter {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.card{
+	min-width:400px;
+	/*background: #222;*/
+	padding:1rem;
+	padding-top:0;
+	border-radius: 5px;
+	box-shadow: 4px 4px 16px rgba(0,0,0,.7);
+}
+
+
+.card--centered 
+	{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+
+.tabs-content{
+	margin-top: 1rem;
+}
+
+
+.tab-list ul{
+	list-style-type: none;
+	width: 100%;
+	-webkit-padding-start: 0;
+	        padding-inline-start: 0;
+	margin: 0;
+}
+
+
+.tab-list ul li{
+	float: left;
+	width: 50%;
+}
+
+
+.tab-list ul li a{
+	display: block;
+	padding: .7rem 0;
+	background: #009688;
+	width: 100%;
+	text-align: center;
+	text-decoration: none;
+	font-size: 15px;
+	text-transform: uppercase;
+	color:#fff;
+	transition: all .5s ease;
+}
+
+
+.tab-list ul li a:hover,.tab-list ul li a.active{
+	background:hsla(174,100%,29%,0.5);
+}
+
+
+.form-control{
+	margin: 1em;
+	color:#F1F1F1;
+}
+
+
+.form-control label{
+	float: left;
+	padding: 6px 0;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+
+.form-control input,.form-control select,.form-control textarea{
+	float: right;
+	height: 1.6em;
+	width: 60%;
+	outline: none;
+	background: hsla(171, 40%, 52%, 0.5);
+	border: 1px solid #20202100;
+	border-bottom: 3px solid #55b6a7;
+	font-size: 1em;
+	padding-left: 1em;
+	color: #000;
+	font-weight: 400;
+}
+
+
+.form-control textarea  {
+	min-height:100px ;
+}
+
+
+.form-control select  {
+	width: 65%;
+}
+
+
+input[type="submit"] {
+	    width: 380px;
+	    box-sizing: border-box;
+	    padding: 0.6em;
+	    background: #55b6a7;
+	    border-width: 0;
+	    margin: 0 10px;
+	    color: #FFF;
+	    /*font-size: 1.2em;*/
+	    text-transform: uppercase;
+	    font-weight: 400;
+	    cursor: pointer;
+	}
+
+
+.btn-delete {
+    width: 80px !important;
+    background: #bc021d !important;
+ }
+
+
+.login__title
+	{
+	text-transform: uppercase;
+	color:#F1F1F1;
+	width:100%;
+	text-align:center;
+	border-bottom: 5px solid #009688;
+	padding:1rem;
+	box-sizing: border-box;
+	margin-bottom: 0;
+}
+
+
+.login-no-provider{
+	background: rgb(2, 90, 82);
+	padding-bottom: 10px;
+
+}
+
+
+.login-with-provid {
+
+    background: #025a52;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+.login-with-provid__title {
+	margin-bottom: 15px;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #f1f1f1;
+	margin-top: 10px;
+	border-bottom: 1px solid #01776c;
+}
+
+
+.login-with-provid #signinButton{
+	margin-top: 20px;
+}

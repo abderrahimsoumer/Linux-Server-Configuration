@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+
+
+
+{% block title %} {{item.title}} {% endblock %}
+
+
+{% block content %}
+		<div class="card card--centered">
+			<h2 class="title_detail">{{item.title}}</h2>
+			<div><strong>Category: </strong> <span>{{item.category.name}}</span></div>
+			<div class="description">
+				{{item.description}}
+			</div>
+			{%if session.get('user_id') == item.user.id %}
+			<div class="actions">
+				<a class="action action--update" href="{{url_for('itemUpdate', id= item.id)}}">Update</a>
+				<a class="action action--delete" href="{{url_for('itemDelete', id= item.id)}}">Delete</a>
+			</div>
+			{% endif %}
+		</div>
+{% endblock %}

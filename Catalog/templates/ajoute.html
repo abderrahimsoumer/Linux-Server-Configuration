@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+{% import 'forms.html' as forms %}
+
+
+{% block title %} New Item {% endblock %}
+
+
+{% block content %}
+	<div class="card card--centered">
+		<h2 class="title_top">New Item</h2>
+		<!--MESSAGE FLASHING  -->
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+			  <div class="alert alert-success">{{message}}</div>
+			{% endfor %}
+		{% endif %}
+		{% endwith %}
+		
+
+		{{ forms.render_item_form(categories=categories) }}
+		    
+	</div>
+{% endblock %}

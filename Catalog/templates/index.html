@@ -1,0 +1,22 @@
+{% extends "layouts/main.html" %}
+
+{% block title %} {%if current_categorie %} {{current_categorie.name}} {% else %} Index {% endif %} {% endblock %}
+
+
+{% block content %}
+    {%if current_categorie %}
+		<h2>{{current_categorie.name}}</h2>
+	{% else %}
+		<h2>Latest item</h2>
+	{% endif %}
+		<a href="{{url_for('newItem')}}" class="btn btn--add_item">New item</a>
+		<div class="items">
+			{% if items %}
+			{% for item in items %}
+				<div class="item"><a href="{{url_for('itemView',id = item.id)}}">{{item.title}}</a> <span class="c_name">({{item.category.name}})</span></div>
+			{% endfor %}
+			{% else %}
+			<p>No item has been added yeat !</p>
+			{% endif %}
+		</div>
+{% endblock %}
