@@ -31,18 +31,18 @@ $ sudo apt-get upgrade
 
 4- Change the SSH port from 22 to 2200. [source](https://www.godaddy.com/help/changing-the-ssh-port-for-your-linux-server-7306)
 
-	- Connect to your server via SSH 
+- Connect to your server via SSH 
 
-	- Switch to the root user
+- Switch to the root user
 
-	- Run the following command : ``` nano /etc/ssh/sshd_config ```
+- Run the following command : ``` nano /etc/ssh/sshd_config ```
 
-	- Locate the following line: 
-		# Port 22
+- Locate the following line: 
+	# Port 22
 
-	-Remove # and change 22 to 2200.
+-Remove # and change 22 to 2200.
 
-	-Restart the sshd service by running the following command: ``` service sshd restart ```
+-Restart the sshd service by running the following command: ``` service sshd restart ```
 
 5- Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
 
