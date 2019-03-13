@@ -12,7 +12,7 @@ Install a Linux server and prepare it to host the web applications (Catalog item
 
 1- create an account on [DigitalOcean](https://m.do.co/c/379434780044), then add a new project and new droplet.
 ![new project](images/new_project.png)
-![new droplet](images/choose_ubunto.png.png)
+![new droplet](images/choose_ubunto.png)
 choose ubunto
 
 2- verify your mail, you will receive an email contain the default password to login using ssh.
