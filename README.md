@@ -121,7 +121,7 @@ For security reasons, you will be required to change this Droplet’s root passw
 	```
 	- visit [http://your_server_ip](http://142.93.49.78) you should see the default page like in the picture bellow:
 
-	[apache2 default page](images/Apache2_default.png) 
+	![apache2 default page](images/Apache2_default.png) 
 
 	- You then need to configure Apache to handle requests using the WSGI module. You’ll do this by editing the */etc/apache2/sites-enabled/000-default.conf* file. This file tells Apache how to respond to requests, where to find the files for a particular site and much more. You can read up on everything this file can do within the [Apache documentation.](http://httpd.apache.org/docs/current/configuring.html)
 
@@ -134,13 +134,13 @@ For security reasons, you will be required to change this Droplet’s root passw
 	- Create the /var/www/html/myapp.wsgi file using the command ```$ sudo nano /var/www/html/myapp.wsgi```. Within this file, write the following application:
 ```python
 	def application(environ, start_response):
-    status = '200 OK'
-    output = b'Hello Udacity!'
+	    status = '200 OK'
+	    output = b'Hello Udacity!'
 
-    response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
-    start_response(status, response_headers)
+	    response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
+	    start_response(status, response_headers)
 
-    return [output]
+	    return [output]
 
 ```
 
@@ -186,7 +186,7 @@ For security reasons, you will be required to change this Droplet’s root passw
 
 	- Create a new database user named catalog that has limited permissions to your catalog application database.
 
-	**Create a New User **
+	**Create a New User**
 
 	If you are logged in as the postgres account, you can create a new user by typing:
 
@@ -253,4 +253,6 @@ For security reasons, you will be required to change this Droplet’s root passw
 	[How To Serve Django Applications with Apache and mod_wsgi on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-apache-and-mod_wsgi-on-ubuntu-16-04)
 
 	[How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+
+	[How To Install Git on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-18-04)
 
