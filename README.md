@@ -282,7 +282,7 @@ For security reasons, you will be required to change this Droplet’s root passw
 	```$ cd Catalog/Catalog```
 	- Use the following command to rename the file application.py :
 	```$ sudo mv application.py __init__.py```
-	- Open the file **__init__.py** by using the command : ```$ sudo nano __init__.py```, and change the line as shown in the picture below:
+	- Open the file `__init__.py` by using the command : ```$ sudo nano __init__.py```, and change the line as shown in the picture below:
 
 	![app.run](images/app_run.png)
 
