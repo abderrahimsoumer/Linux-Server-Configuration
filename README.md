@@ -110,7 +110,8 @@ For security reasons, you will be required to change this Droplet’s root passw
 	- Create the file ~/.ssh/authorized_keys using the command ```$ touch ~/.ssh/authorized_keys```, open it using ```$ nano ~/.ssh/authorized_keys```, past the content of the key and save it.
 	- Change the permissions using ```$ chmod 700 .ssh``` and ```$ chmod 644 .ssh/authorized_keys```
 	- Run the command ``` $ sudo nano /etc/ssh/sshd_config```
-	- edit the line ```PasswordAuthentication yes ``` to become ```PasswordAuthentication no ```, so we only authenticate using key rsa.
+	- Edit the line ```PasswordAuthentication yes ``` to become ```PasswordAuthentication no ```, so we only authenticate using key rsa.
+	- Set The property `PermitRootLogin`  to `no` so a root user cannot be used to manipulate your server. Change this config within the sshd_configs file.
 	- restart the service ```$ sudo service ssh restart```
 	- Switch to your local machine and run:```$ ssh -i ~/.ssh/id_rsa -p 2200 grader@142.93.49.78 ```
 
