@@ -4,7 +4,8 @@ Install a Linux server and prepare it to host the web applications (Catalog item
 
 - **IP address:** 142.93.49.78
 - **SSH port:** 2200
-- **web application URL :** 
+- **web application URL :** [catalog item](http://142.93.49.78)
+- **Connect Using ssh:** ``` $ ssh -i ~/.ssh/id_rsa -p 2200 grader@142.93.49.78 ```
 
 
 
@@ -16,7 +17,9 @@ Install a Linux server and prepare it to host the web applications (Catalog item
 choose ubunto
 
 2. verify your mail, you will receive an email contain the default password to login using ssh.
-``` ssh root@142.93.49.78 -p 22 ```
+```
+$ ssh root@142.93.49.78 -p 22 
+```
 For security reasons, you will be required to change this Droplet’s root password when you login.
 
 ## Secure your server.
@@ -35,13 +38,19 @@ For security reasons, you will be required to change this Droplet’s root passw
 
 	- Switch to the root user
 
-	- Run the following command : ``` nano /etc/ssh/sshd_config ```
+	- Run the following command : 
+	```
+	$ nano /etc/ssh/sshd_config 
+	```
 
 	- Locate the following line:  #Port 22
 
 	- Remove # and change 22 to 2200.
 
-	- Restart the sshd service by running the following command: ``` service sshd restart ```
+	- Restart the sshd service by running the following command: 
+	```
+	$ service sshd restart 
+	```
 
 5. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
 
@@ -148,23 +157,23 @@ For security reasons, you will be required to change this Droplet’s root passw
 
 	- Run the following command:
 	```
-		$ sudo apt-get update
-	    $ sudo apt-get install postgresql postgresql-contrib
+	$ sudo apt-get update
+	$ sudo apt-get install postgresql postgresql-contrib
 	```
 
 	- Switch over to the postgres account on your server by typing:
 	```
-		$ sudo -i -u postgres
+	$ sudo -i -u postgres
 	```
 	You can now access a Postgres prompt immediately by typing:
 	```
-	 	$ psql
+	$ psql
 	```
 	You will be logged in and able to interact with the database management system right away.
 
 	Exit out of the PostgreSQL prompt by typing:
 	```
-		postgres=# \q
+	postgres=# \q
 	```
 
 	- Do Not Allow Remote Connections
@@ -173,7 +182,7 @@ For security reasons, you will be required to change this Droplet’s root passw
 
 	We can double check that no remote connections are allowed by looking in the host based authentication file:
 	```
-	sudo nano /etc/postgresql/10/main/pg_hba.conf
+	$ sudo nano /etc/postgresql/10/main/pg_hba.conf
 	```
 
 	```
@@ -395,8 +404,9 @@ $ sudo nano /var/www/Catalog/login_with_providers.py
 
 ![change dir ](images/change_dir_cles.png)
 
-Run the command to add some cateogy:
+Run the command to setup database and add some cateogy:
 ```
+$ python3 /var/www/Catalog/models.py
 $ python3 /var/www/Catalog/lotsofCategory.py
 ```
 if you get this error :
@@ -428,9 +438,10 @@ $ sudo nano /var/www/Catalog/client_secrets.json
 ```
 - Create an application facebook 
 
-[Facebook Login pour le web avec le SDK JavaScript]https://developers.facebook.com/docs/facebook-login/web
+[Facebook Login pour le web avec le SDK JavaScript](https://developers.facebook.com/docs/facebook-login/web)
 
 [Quickstart: Facebook SDK for JavaScript](https://developers.facebook.com/docs/javascript/quickstart/)
+
 Edit the file  **fb_client_secrets.json**
 ```
 $ sudo nano /var/www/Catalog/fb_client_secrets.json
@@ -449,3 +460,7 @@ $ sudo nano /var/www/Catalog/fb_client_secrets.json
 
 ```$ sudo service apache2 restart```
 
+
+**Resource:**
+
+[How To Deploy a Flask Application on an Ubuntu VPS ](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
