@@ -199,6 +199,13 @@ For security reasons, you will be required to change this Droplet’s root passw
 	The script will prompt you with some choices and, based on your responses, execute the correct Postgres commands to create a user to your specifications.
 	![new postgres user](images/new_postgres_user.png)
 
+	Give the catalog user a password by running 
+
+	```
+	$ sudo -u postgres psql
+	postgres=#  \password catalog
+	```
+
 	**Create a New Database**
 
 	If you are logged in as the postgres account, you would type something like:
@@ -220,6 +227,7 @@ For security reasons, you will be required to change this Droplet’s root passw
 	Once you have the appropriate account available, you can switch over and connect to the database by typing:
 
 	```$ sudo -u catalog psql ```
+
 
 
 12. Install git.
@@ -255,4 +263,189 @@ For security reasons, you will be required to change this Droplet’s root passw
 	[How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 
 	[How To Install Git on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-18-04)
+
+13. Clone and setup the Item Catalog project from the Github repository .
+
+	- Move to the **/var/www** directory
+	- Clone this repository by using the command: 
+	```$ sudo git clone https://github.com/abderrahimsoumer/Linux-Server-Configuration.git Catalog```
+	- Move to the *Catalog/Catalog* directory by using the command: 
+	```$ cd Catalog/Catalog```
+	- Use the following command to rename the file application.py :
+	```$ sudo mv application.py __init__.py```
+	- Open the file **__init__.py** by using the command : ```$ sudo nano __init__.py```, and change the line as shown in the picture below:
+
+	![app.run](images/app_run.png)
+
+	Save and close the file.
+
+14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser!
+
+	In this step, we will create a virtual environment for our flask application.
+
+	If virtualenv is not installed, use pip to install it using following command:
+
+	```$ sudo pip install virtualenv ```
+
+	Give the following command (where venv3 is the name you would like to give your temporary environment):
+
+	```$ sudo virtualenv venv3```
+
+	Now, install Flask in that environment by activating the virtual environment with the following command:
+
+	```$ source venv3/bin/activate ```
+
+	-Install the following dependencies:
+	```
+	$ sudo pip3 install flask
+	$ sudo  pip3 install sqlalchemy
+	$ sudo pip3 install passlib
+	$ sudo pip3 install oauth2client
+	$ sudo pip3 install psycopg2
+	```
+
+
+	- Configure and Enable a New Virtual Host
+
+	Issue the following command in your terminal:
+	```$ sudo nano /etc/apache2/sites-available/Catalog.conf ```
+
+	Add the following lines of code to the file to configure the virtual host. Be sure to change the ServerName to your domain or cloud server's IP address:
+
+	```
+		<VirtualHost *:80>
+			ServerName 142.93.49.78
+			ServerAdmin webmaster@localhost
+			WSGIScriptAlias / /var/www/Catalog/catalog.wsgi
+			<Directory /var/www/Catalog/Catalog/>
+				Order allow,deny
+				Allow from all
+			</Directory>
+			Alias /static /var/www/Catalog/Catalog/static
+			<Directory /var/www/Catalog/Catalog/static/>
+				Order allow,deny
+				Allow from all
+			</Directory>
+			ErrorLog ${APACHE_LOG_DIR}/error.log
+			LogLevel warn
+			CustomLog ${APACHE_LOG_DIR}/access.log combined
+		</VirtualHost>
+	```
+
+	Save and close the file.
+
+	Enable the virtual host with the following command:
+
+	```
+	$ sudo a2ensite Catalog
+	```
+
+	- Create the .wsgi File
+
+	Apache uses the .wsgi file to serve the Flask app. Move to the /var/www/Catalog directory and create a file named catalog.wsgi with following commands:
+	```
+	$ cd /var/www/Catalog
+	$ sudo nano catalog.wsgi 
+	```
+
+	Add the following lines of code to the catalog.wsgi file:
+
+```python
+	#!/usr/bin/python
+
+	filename = '/var/www/Catalog/Catalog/venv3/bin/activate_this.py'
+	exec(compile(open(filename, "rb").read(), filename, 'exec'),  dict(__file__=filename))
+
+	import sys
+	import logging
+
+	if sys.version_info[0]<3:
+	    raise Exception("Python3 required! Current (wrong) version: '%s'" % sys.version_info)
+	logging.basicConfig(stream=sys.stderr)
+	sys.path.insert(0,"/var/www/Catalog")
+
+	from Catalog import app as application
+	application.secret_key = 'Your secret key'
+```
+
+- Restart Apache with the following command to apply the changes:
+
+```$ sudo service apache2 restart```
+
+- Change engine in the files `models.py`, `lotsofCategory.py` and `__init__.py`
+
+```python 
+engine = create_engine('postgresql://catalog:YOUR_PASSWOR@localhost/catalog')
+```
+
+![change engine](images/change_engine.png)
+
+Use the following command to move the files :
+```
+$ sudo mv /var/www/Catalog/Catalog/models.py /var/www/Catalog/models.py
+$ sudo mv /var/www/Catalog/Catalog/login_with_providers.py /var/www/Catalog/login_with_providers.py
+$ sudo mv /var/www/Catalog/Catalog/lotsofCategory.py /var/www/Catalog/lotsofCategory.py
+$ sudo mv /var/www/Catalog/Catalog/client_secrets.json /var/www/Catalog/client_secrets.json 
+$ sudo mv /var/www/Catalog/Catalog/fb_client_secrets.json /var/www/Catalog/fb_client_secrets.json 
+``` 
+Run the command and edit the file as shown in the picture:
+```
+$ sudo nano /var/www/Catalog/login_with_providers.py 
+```
+
+![change dir ](images/change_dir_cles.png)
+
+Run the command to add some cateogy:
+```
+$ python3 /var/www/Catalog/lotsofCategory.py
+```
+if you get this error :
+
+![error](images/psycopg2-binary.png)
+
+Install **psycopg2-binary**
+
+``` 
+$ pip3 install psycopg2-binary
+```
+
+**Add Client OAuth**
+
+- Follow the steps in [this page](https://developers.google.com/identity/sign-in/web/sign-in) to create OAuth 2.0 client ID in the Google API Console.
+
+Edit the file  **client_secrets.json**
+```
+$ sudo nano /var/www/Catalog/client_secrets.json
+```
+
+```json
+{
+"web":{
+"client_id":"YOUR_CLIENT_ID",
+"client_secret":"YOUR_CLIENT_SECRET"
+}
+
+```
+- Create an application facebook 
+
+[Facebook Login pour le web avec le SDK JavaScript]https://developers.facebook.com/docs/facebook-login/web
+
+[Quickstart: Facebook SDK for JavaScript](https://developers.facebook.com/docs/javascript/quickstart/)
+Edit the file  **fb_client_secrets.json**
+```
+$ sudo nano /var/www/Catalog/fb_client_secrets.json
+```
+
+```json
+{
+  "web": {
+    "app_id": "APP_ID",
+    "app_secret": "APP_SECRET"
+  }
+}
+
+```
+- Restart Apache with the following command to apply the changes:
+
+```$ sudo service apache2 restart```
 

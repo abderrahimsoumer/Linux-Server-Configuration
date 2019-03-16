@@ -4,7 +4,7 @@ from flask import abort, redirect
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.pool import StaticPool
-from sqlalchemy import create_engine, exc
+from sqlalchemy import create_engine, exc ,desc
 
 # from flask_httpauth import HTTPBasicAuth
 # auth = HTTPBasicAuth()
@@ -106,7 +106,7 @@ def index():
     categories = session.query(Category).all()
     # I should implement the pagination later
     # for the instance i display all the items in one page
-    latest_items = session.query(Item).order_by("id desc").all()
+    latest_items = session.query(Item).order_by(desc("id")).all()
     """
     Instead of using this code to get the information for the user actif
     I just store the information I need in the session
@@ -129,7 +129,7 @@ def itemsByCategory(cat_id):
     # I should implement the pagination later
     # for the instance i display all the items in one page
     latest_items = session.query(Item).filter_by(
-                   cat_id=cat_id).order_by("id desc").all()
+                   cat_id=cat_id).order_by(desc("id")).all()
     return render_template('index.html', categories=categories,
                            current_categorie=current_categorie,
                            items=latest_items)
